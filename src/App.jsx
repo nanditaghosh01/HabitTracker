@@ -1,15 +1,6 @@
-// ============================================================
-// App.jsx — Full Habit Tracker & Streak Dashboard
-// Single JSX file: all components, pages, routing logic
-// ============================================================
-// NOTE: In a real Vite/CRA project, import React from 'react'
-// and import { BrowserRouter, Routes, Route, ... } from 'react-router-dom'
-// and import './styles.css'
-// and import * as utils from './utils.js'
-// ============================================================
-/*cd D:\Projects\HabitTracker
-npx vite
-http://localhost:5173 */
+//cd D:\Projects\HabitTracker
+//npx vite
+//http://localhost:5173 
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
   BrowserRouter,
@@ -30,10 +21,6 @@ import {
   CATEGORIES, FREQUENCIES, CATEGORY_COLORS,
   todayStr, daysAgo,
 } from "./utils.js";
-
-// ============================================================
-// NAVBAR
-// ============================================================
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
@@ -97,10 +84,6 @@ function Navbar() {
     </nav>
   );
 }
-
-// ============================================================
-// HOME PAGE
-// ============================================================
 function HomePage() {
   const [totalCheckins, setTotalCheckins] = useState(getTotalCheckins());
   const [completionRate, setCompletionRate] = useState(getOverallCompletionRate());
@@ -250,10 +233,6 @@ function HeroIllustration() {
     </svg>
   );
 }
-
-// ============================================================
-// DAILY DASHBOARD
-// ============================================================
 function DailyDashboard() {
   const [habits, setHabits] = useState([]);
   const [checkins, setCheckins] = useState({});
@@ -295,7 +274,6 @@ function DailyDashboard() {
     setPomodoroOpen(true);
   };
 
-  // Freeze token state
   const [freezeToken, setFreezeToken] = useState(loadFreezeToken());
 
   const handleFreeze = () => {
@@ -443,9 +421,6 @@ function HabitCard({ habit, checkins, onToggle, onPomodoro }) {
   );
 }
 
-// ============================================================
-// POMODORO TIMER (Bonus)
-// ============================================================
 function PomodoroTimer({ habit, onClose }) {
   const WORK = 25 * 60;
   const BREAK = 5 * 60;
@@ -509,10 +484,6 @@ function PomodoroTimer({ habit, onClose }) {
     </div>
   );
 }
-
-// ============================================================
-// ADD HABIT FORM
-// ============================================================
 function AddHabitForm() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", category: "", frequency: "" });
@@ -695,9 +666,6 @@ function AddHabitForm() {
   );
 }
 
-// ============================================================
-// CONSISTENCY GRID (heatmap)
-// ============================================================
 function ConsistencyGrid() {
   const [category, setCategory] = useState("all");
   const [days] = useState(30);
@@ -791,9 +759,6 @@ function ConsistencyGrid() {
   );
 }
 
-// ============================================================
-// INSIGHTS
-// ============================================================
 function Insights() {
   const habits = loadHabits();
   const checkins = loadCheckins();
@@ -933,9 +898,6 @@ function Insights() {
   );
 }
 
-// ============================================================
-// ABOUT PAGE
-// ============================================================
 function AboutPage() {
   return (
     <div className="page-wrap">
@@ -1003,9 +965,6 @@ function AboutPage() {
   );
 }
 
-// ============================================================
-// 404 PAGE
-// ============================================================
 function NotFound() {
   return (
     <div className="page-wrap">
@@ -1019,9 +978,6 @@ function NotFound() {
   );
 }
 
-// ============================================================
-// APP ROOT
-// ============================================================
 export default function App() {
   return (
     <BrowserRouter>

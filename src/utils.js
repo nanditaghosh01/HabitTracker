@@ -1,14 +1,9 @@
-// ============================================================
-// utils.js — All data logic, localStorage, streak calculation
-// ============================================================
-
 export const STORAGE_KEYS = {
   HABITS: "ht_habits",
   CHECKINS: "ht_checkins",
   FREEZE: "ht_freeze_token",
 };
 
-// ---------- localStorage helpers ----------
 export function loadData(key) {
   try {
     const raw = localStorage.getItem(key);
@@ -22,7 +17,6 @@ export function saveData(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
-// ---------- Date helpers ----------
 export function todayStr() {
   return new Date().toISOString().slice(0, 10);
 }
@@ -37,7 +31,6 @@ export function daysAgo(n) {
   return dateStr(d);
 }
 
-// ---------- Habit CRUD ----------
 export function loadHabits() {
   return loadData(STORAGE_KEYS.HABITS) || [];
 }
@@ -70,8 +63,6 @@ export function updateHabit(id, updates) {
   const habits = loadHabits().map((h) => (h.id === id ? { ...h, ...updates } : h));
   saveHabits(habits);
 }
-
-// ---------- Check-in CRUD ----------
 export function loadCheckins() {
   return loadData(STORAGE_KEYS.CHECKINS) || {};
 }
@@ -95,7 +86,6 @@ export function isCheckedToday(habitId) {
   return (checkins[habitId] || []).includes(todayStr());
 }
 
-// ---------- Streak calculation ----------
 export function calcCurrentStreak(dates) {
   if (!dates || dates.length === 0) return 0;
   const sorted = [...new Set(dates)].sort().reverse();
@@ -133,7 +123,6 @@ export function calcLongestStreak(dates) {
   return longest;
 }
 
-// ---------- Stats ----------
 export function getTotalCheckins() {
   const checkins = loadCheckins();
   return Object.values(checkins).reduce((sum, arr) => sum + arr.length, 0);
@@ -178,8 +167,6 @@ export function getHeatmapData(days = 30, category = "all") {
   }
   return result;
 }
-
-// ---------- Habit Momentum (bonus) ----------
 export function calcMomentum(habitId) {
   const checkins = loadCheckins();
   const dates = checkins[habitId] || [];
@@ -192,7 +179,6 @@ export function calcMomentum(habitId) {
   return Math.min(100, Math.round((score / 53) * 100));
 }
 
-// ---------- Freeze Token ----------
 export function loadFreezeToken() {
   const data = loadData(STORAGE_KEYS.FREEZE);
   if (!data) return { available: true, usedAt: null, expiresAt: null };
@@ -219,7 +205,6 @@ export function useFreezeToken() {
   return true;
 }
 
-// ---------- Categories ----------
 export const CATEGORIES = ["Health", "Productivity", "Learning", "Fitness", "Mindfulness", "Custom"];
 export const FREQUENCIES = ["Daily", "Weekly", "Custom"];
 
